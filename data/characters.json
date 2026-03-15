@@ -1,17 +1,17 @@
 [
   {
-    "name": "",
-    "age": 0,
-    "photo": "url"
+    "name": "Franklin",
+    "age": 30,
+    "person_photo": "https://i.pinimg.com/736x/07/9b/6d/079b6d1543bafea4606f4b3aeb45f27f.jpg "
   },
   {
-    "name": "",
-    "age": 0,
-    "photo": "url"
+    "name": "Michael",
+    "age": 48,
+    "person_photo": "https://rockstargames.su/wp-content/uploads/2015/08/Prototip-Majkla-de-Santy.jpg"
   },
   {
-    "name": "",
-    "age": 0,
-    "photo": "url"
+    "name": "Trevor",
+    "age": 47,
+    "person_photo": "https://upload.wikimedia.org/wikipedia/en/d/da/Trevor_Philips.Grand_Theft_Auto_V.jpg  "
   }
 ]

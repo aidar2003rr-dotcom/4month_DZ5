@@ -27,6 +27,5 @@ const openModalByScroll = () => {
     }
 }
 
-// Вешаем событие скролла на все окно
 window.addEventListener('scroll', openModalByScroll);
 setTimeout(showModal, 10000);

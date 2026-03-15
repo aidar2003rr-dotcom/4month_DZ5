@@ -80,3 +80,34 @@ let count = 0;
         count = 0
             secondsElement.innerHTML = count;
         }
+
+
+        // Characters:
+const charactersList = document.querySelector('.characters-list');
+
+fetch('characters.json')
+    .then(response => response.json())
+    .then(data => {
+
+        data.forEach(character => {
+
+            // Создаем обертку карточки
+            const card = document.createElement('div');
+            card.classList.add('character-card');
+
+            // Наполняем карточку структурой, которая подходит под твой CSS
+            card.innerHTML = `
+                <div class="character-photo">
+                    <img src="${character.person_photo}" alt="${character.name}">
+                </div>
+                <h2 style="color: var(--orange);">${character.name}</h2>
+                <p style="color: white;">Возраст: ${character.age}</p>
+            `;
+
+            // 3. Добавляем готовую карточку в список на странице
+            charactersList.append(card);
+        });
+    })
+    .catch(error => {
+        console.error('Ошибка при загрузке JSON:', error);
+    });
