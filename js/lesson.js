@@ -63,6 +63,7 @@ const somInput = document.querySelector('#som')
 const eurInput = document.querySelector('#eur')
 const errorMessage  = document.querySelector('#error')
 
+// Конвертер валют
 const converter = (targetElement, otherElement1, otherElement2) => {
     targetElement.addEventListener('input', () => {
         const request = new XMLHttpRequest()
@@ -103,3 +104,63 @@ const converter = (targetElement, otherElement1, otherElement2) => {
 converter(usdInput, somInput, eurInput)
 converter(somInput, usdInput, eurInput)
 converter(eurInput, somInput, usdInput)
+
+// Switch card
+const btnNext = document.querySelector('#btn-next')
+const btnPrev = document.querySelector('#btn-prev')
+const card = document.querySelector('.card')
+const BASE_URL = 'https://jsonplaceholder.typicode.com/todos/'
+
+let cardID = 199
+
+const fetchTodos = (id) => {
+    fetch(BASE_URL + id)
+        .then(response => response.json())
+        .then(data => {
+            const { id, title, completed } = data
+            const color = completed ? 'green' : 'red'
+
+            card.style.borderColor = color
+            card.innerHTML = `
+                <p>ID -> ${id}</p>
+                <p>${title}</p>
+                <p style="color:${color}">${completed ? 'Completed' : 'Not Completed'}</p>
+            `
+        })
+        .catch(err => {
+            console.error(err)
+            card.innerHTML = '<p style="color:red">Ошибка в коде или сети</p>'
+        })
+}
+
+fetchTodos(cardID)
+
+btnNext.onclick = () => {
+    cardID = (cardID >= 200) ? 1 : cardID + 1
+    fetchTodos(cardID)
+}
+
+btnPrev.onclick = () => {
+    cardID = (cardID <= 1) ? 200 : cardID - 1
+    fetchTodos(cardID)
+}
+
+const ALBUMS_URL = 'https://jsonplaceholder.typicode.com/albums'
+
+const fetchAlbums = () => {
+    fetch(ALBUMS_URL)
+        .then(response => {
+            if (!response.ok) throw new Error('Ошибка при загрузке альбомов')
+            return response.json()
+        })
+        .then(data => {
+            console.log('Список альбомов:')
+            console.log(data)
+        })
+        .catch(error => console.error('Ошибка в fetchAlbums:', error))
+}
+
+fetchAlbums()
+
+
+
