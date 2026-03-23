@@ -428,3 +428,53 @@
     100% {
     }
 }
+
+.wrapper2 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+}
+
+.card {
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    background: white;
+}
+
+.card img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.card h3 {
+    margin-top: 10px;
+    font-size: 20px;
+    color: black;
+}
+
+.card p {
+    opacity: 0.8;
+}
+.inputs_dz {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+.buttons{
+    display: flex;
+    justify-content: center;
+    gap: 17px;
+    padding: 20px;
+}
+.buttons button {
+    gap: 15px;
+    padding: 20px;
+    cursor: pointer;
+    border-radius: 24px;
+    background-color: bisque;
+}

@@ -1,5 +1,3 @@
-
-
 const tabs = document.querySelectorAll('.tab_content_block')
 const tabBtns = document.querySelectorAll('.tab_content_item')
 const tabBtnsParent = document.querySelector('.tab_content_items')
@@ -20,9 +18,9 @@ const showActiveTab = (index = 0) => {
 }
 showActiveTab()
 tabBtnsParent.addEventListener('click', (event) => {
-    if (event.target.tagName.toLowerCase() == 'button'){
+    if (event.target.tagName.toLowerCase() == 'button') {
         tabBtns.forEach((btn, index) => {
-            if (event.target == btn){
+            if (event.target == btn) {
                 hideTabs()
                 showActiveTab(index)
             }
@@ -47,9 +45,9 @@ const autoSlider = () => {
 autoSlider()
 
 tabBtnsParent.addEventListener('click', (event) => {
-    if (event.target.tagName.toLowerCase() == 'button'){
+    if (event.target.tagName.toLowerCase() == 'button') {
         tabBtns.forEach((btn, index) => {
-            if (event.target == btn){
+            if (event.target == btn) {
                 currentIndex = index
                 hideTabs()
                 showActiveTab(index)
@@ -61,7 +59,7 @@ tabBtnsParent.addEventListener('click', (event) => {
 const usdInput = document.querySelector('#usd')
 const somInput = document.querySelector('#som')
 const eurInput = document.querySelector('#eur')
-const errorMessage  = document.querySelector('#error')
+const errorMessage = document.querySelector('#error')
 
 // Конвертер валют
 const converter = (targetElement, otherElement1, otherElement2) => {
@@ -72,7 +70,7 @@ const converter = (targetElement, otherElement1, otherElement2) => {
         request.send()
 
         request.onload = () => {
-            if (request.status === 404){
+            if (request.status === 404) {
                 errorMessage.style.color = 'red'
                 errorMessage.innerHTML = 'Произошла ошибка'
                 return;
@@ -80,20 +78,20 @@ const converter = (targetElement, otherElement1, otherElement2) => {
             const response = JSON.parse(request.response)
             const usd = response?.usd
             const eur = response?.eur
-                if (targetElement.value === ''){
-                    somInput.value = ''
-                    usdInput.value = ''
-                    eurInput.value = ''
-                    return
-                }
+            if (targetElement.value === '') {
+                somInput.value = ''
+                usdInput.value = ''
+                eurInput.value = ''
+                return
+            }
             if (targetElement.id === 'som') {
                 usdInput.value = (targetElement.value / usd).toFixed(2)
                 eurInput.value = (targetElement.value / eur).toFixed(2)
-            }else if (targetElement.id === 'usd'){
+            } else if (targetElement.id === 'usd') {
                 const resultSom = targetElement.value * usd
                 somInput.value = resultSom.toFixed(2)
                 eurInput.value = (resultSom / eur).toFixed(2)
-            }else if (targetElement.id === 'eur'){
+            } else if (targetElement.id === 'eur') {
                 const resultSom = targetElement.value * eur
                 somInput.value = resultSom.toFixed(2)
                 usdInput.value = (resultSom / usd).toFixed(2)
@@ -117,7 +115,7 @@ const fetchTodos = (id) => {
     fetch(BASE_URL + id)
         .then(response => response.json())
         .then(data => {
-            const { id, title, completed } = data
+            const {id, title, completed} = data
             const color = completed ? 'green' : 'red'
 
             card.style.borderColor = color
@@ -163,4 +161,54 @@ const fetchAlbums = () => {
 fetchAlbums()
 
 
+const searchBtn = document.querySelector('#search')
+const searchInput = document.querySelector('.cityName')
+const cityName = document.querySelector('.city')
+const temperature = document.querySelector('.temp')
 
+const BASE_API = 'https://api.openweathermap.org/data/2.5/weather'
+const API_KEY = '83b3ebd39b878f8be8acd104821aa61a'
+
+// searchBtn.addEventListener('click', () => {
+//     if (searchInput.value == '') {
+//         cityName.innerHTML = "Укажите город"
+//         temperature.innerHTML = ''
+//         return
+//     }
+//     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${searchInput.value}&units=metric&appid=83b3ebd39b878f8be8acd104821aa61a`)
+//         .then(response => {
+//             if (!response.ok) {
+//                 cityName.innerHTML = "Укажите корректный город"
+//                 temperature.innerHTML = ''
+//                 return
+//             }
+//             return response.json()
+//         })
+//         .then(data => {
+//             const {name, main: {temp}} = data
+//
+//             cityName.innerHTML = name
+//             temperature.innerHTML = temp + 'c'
+//         })
+//     searchInput.value = ''
+// })
+
+
+searchBtn.addEventListener('click', async() => {
+    if (searchInput.value == ''){
+        cityName.innerHTML = 'Укажите город'
+        temperature.innerHTML = ''
+        return
+    }
+    try{
+        const response = await fetch(`${BASE_API}?q=${searchInput.value}&lang=ru&units=metric&appid=${API_KEY}`)
+        const data = await response.json()
+        const {name, main:{temp}} = data
+        cityName.innerHTML = name
+        temperature.innerHTML = temp + 'C'
+    }catch (error){
+        cityName.innerHTML = 'Укажите корректный город'
+        temperature.innerHTML = ''
+    }
+    searchInput.value = ''
+} )
